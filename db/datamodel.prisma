@@ -1,0 +1,88 @@
+type User {
+  id: ID! @unique
+  fullName: String!
+  email: String! @unique
+  password: String!
+  role: String!
+  companies: [Company!]!
+  boards: [Board!]!
+  postForms: [PostForm!]!
+  isAdmin: Boolean! @default(value: false)
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Company {
+  id: ID! @unique
+  name: String! @unique
+  color: String! @default(value: "#525df9")
+  logoUrl: String
+  faviconUrl: String
+  subdomain: String @unique
+  users: [User!]!
+  boards: [Board!]!
+  redirectURL: String
+  doSendEmails: Boolean! @default(value: "true")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type PostForm {
+  id: ID! @unique
+  heading: String! @default(value: "Create a Post")
+  description: String
+  title: String! @default(value: "Title")
+  titlePlaceholder: String! @default(value: "Short, descriptive title")
+  details: String! @default(value: "Details")
+  detailsPlaceholder: String! @default(value: "Any additional details…")
+  buttonText: String! @default(value: "Create Post")
+  board: Board! @relation(name: "BoardToPostForm")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Tag {
+  id: ID! @unique
+  title: String!
+  board: Board! @relation(name: "BoardToTag")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Post {
+  id: ID! @unique
+  title: String!
+  details: String!
+  joinedPictureUrl: String
+  tags: [Tag!]!
+  status: String!
+  votes: [Vote!]! @relation(name: "PostToVote", onDelete: CASCADE)
+  owner: User!
+  board: Board! @relation(name: "BoardToPost")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Vote {
+  id: ID! @unique
+  owner: User!
+  post: Post! @relation(name: "PostToVote")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Board {
+  id: ID! @unique
+  name: String! @unique
+  url: String! @unique
+  isPublic: Boolean! @default(value: "true")
+  postForm: PostForm! @relation(name: "BoardToPostForm", onDelete: CASCADE)
+  tags: [Tag!]! @relation(name: "BoardToTag", onDelete: CASCADE)
+  posts: [Post!]! @relation(name: "BoardToPost", onDelete: CASCADE)
+  owner: User!
+  company: Company!
+  publicView: Boolean! @default(value: "true")
+  indexInSE: Bloolean! @default(value: "true")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}

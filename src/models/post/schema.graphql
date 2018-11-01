@@ -1,0 +1,53 @@
+type PostForm {
+  id: ID!
+  heading: String!
+  description: String
+  title: String!
+  titlePlaceholder: String!
+  details: String!
+  detailsPlaceholder: String!
+  buttonText: String!
+  owner: User!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type Post {
+  id: ID!
+  title: String!
+  details: String!
+  joinedPictureUrl: String
+  tags: [Tag!]!
+  status: String!
+  votes: [Vote!]!
+  owner: User!
+  board: Board!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+input IPost {
+  boardId: ID!
+  title: String!
+  details: String!
+  joinedPictureUrl: String
+}
+
+input IPostEdit {
+  postId: ID!
+  title: String
+  details: String
+  joinedPictureUrl: String
+}
+
+type Mutation {
+  createPost(postInput: IPost!): Post! @hasAuth(auth: true)
+  editPost(postInput: IPostEdit!): Post! @hasAuth(auth: true)
+  deletePost(id: ID!): Post! @hasAuth(auth: true)
+  changePostStatus(id: ID!, status: String!): Post!
+}
+
+type Query {
+  post(id: ID!): Post! @hasAuth(auth: true)
+  posts: [Post!]! @hasAuth(auth: true)
+}

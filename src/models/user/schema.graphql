@@ -1,0 +1,37 @@
+type User {
+  id: ID!
+  fullName: String!
+  role: Role!
+  email: String!
+  companies: [Company!]!
+  boards: [Board!]!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type UserLogin {
+  token: String!
+  user: User!
+}
+
+input IRegister {
+  fullName: String!
+  password: String!
+  email: String!
+  companyName: String!
+  role: Role!
+}
+
+input ILogin {
+  email: String!
+  password: String!
+}
+
+type Query {
+  currentUser: User! @hasAuth(auth: true)
+}
+
+type Mutation {
+  authenticateUser(loginInput: ILogin!): UserLogin!
+  registerUser(registerInput: IRegister!): UserLogin!
+}

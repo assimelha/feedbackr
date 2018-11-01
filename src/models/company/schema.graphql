@@ -1,0 +1,14 @@
+type Company {
+  id: ID!
+  name: String!
+  color: String!
+  logoUrl: String
+  faviconUrl: String
+  subdomain: String
+  users: [User!]!
+  boards: [Board!]!
+  redirectURL: String
+  doSendEmails: Boolean!
+  createdAt: Date!
+  updatedAt: Date!
+}

@@ -1,0 +1,27 @@
+type Board {
+  id: ID!
+  name: String!
+  url: String!
+  isPublic: Boolean!
+  postForm: PostForm!
+  tags: [Tag!]!
+  posts: [Post!]!
+  company: Company!
+  owner: User!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+input IBoard {
+  name: String!
+  url: String!
+  companyId: ID!
+}
+
+type Query {
+  board(id: ID!, companyId: ID!): Board! @hasAuth(auth: true)
+}
+
+type Mutation {
+  createBoard(boardInput: IBoard!): Board! @hasAuth(auth: true)
+}

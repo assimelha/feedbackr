@@ -1,0 +1,7 @@
+type Tag {
+  id: ID!
+  title: String!
+  board: Board!
+  createdAt: Date!
+  updatedAt: Date!
+}

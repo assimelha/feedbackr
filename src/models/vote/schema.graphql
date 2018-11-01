@@ -1,0 +1,7 @@
+type Vote {
+  id: ID!
+  owner: User!
+  post: Post!
+  createdAt: Date!
+  updatedAt: Date!
+}
