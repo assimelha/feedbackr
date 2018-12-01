@@ -1,7 +1,8 @@
 // import * as User from './services';
-import { prisma, UserNode, ID_Input } from "../../generated/prisma";
 import { AuthenticationError, UserInputError } from "apollo-server-errors";
 import { CreateBoard, GetBoard, GetBoardCompany } from "./services";
+import { Board } from "../../entity";
+import { Repository } from "typeorm";
 
 export const resolver = {
   Query: <any>{},
@@ -9,15 +10,12 @@ export const resolver = {
   Board: <any>{}
 };
 
-resolver.Board.company = async root => {
-  return GetBoardCompany({ boardId: root.id });
-};
-
 /*
   ***** Queries *****
 */
 
-resolver.Query.board = async (root, { companyId, id: boardId }, { user }) => {
+resolver.Query.board = async ({ companyId, id: boardId }, { user }) => {
+  console.log({ companyId });
   return GetBoard({ userId: user.id, companyId, boardId });
 };
 

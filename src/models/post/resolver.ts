@@ -1,12 +1,12 @@
 // import * as User from './services';
-import { prisma } from "../../generated/prisma";
 import { AuthenticationError, UserInputError } from "apollo-server-errors";
 import {
   GetPost,
   CreatePost,
   EditPost,
   DeletePost,
-  ChangePostStatus
+  ChangePostStatus,
+  GetPosts
 } from "./services";
 import { STATUS } from "../../lib/constants";
 
@@ -17,7 +17,7 @@ export const resolver = {
 };
 
 resolver.Post.votes = post => {
-  return prisma.post({ id: post.id }).votes();
+  // return prisma.post({ id: post.id }).votes();
 };
 
 /*
@@ -28,7 +28,13 @@ resolver.Query.post = async (_, { id }, { user }) => {
   return GetPost({ userId: user.id, postId: id });
 };
 
-resolver.Query.posts = async () => {};
+resolver.Query.posts = async (_, { postsInput }, { user }) => {
+  return GetPosts({
+    status: postsInput.status,
+    boardId: postsInput.boardId,
+    userId: user.id
+  });
+};
 
 /*
   ***** Mutations *****

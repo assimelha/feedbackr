@@ -12,3 +12,7 @@ type Company {
   createdAt: Date!
   updatedAt: Date!
 }
+
+type Query {
+  company(companyId: ID!): Company!
+}

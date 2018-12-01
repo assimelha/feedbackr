@@ -1,9 +1,16 @@
 import { GraphQLServer } from "graphql-yoga";
 import { GetUserByToken } from "./models/user/services";
 import * as depthLimit from "graphql-depth-limit";
+import "reflect-metadata";
 import * as glue from "schemaglue";
 import { AuthenticationError } from "apollo-server-errors";
-import { User, ID_Input } from "./generated/prisma";
+import {
+  Connection,
+  createConnection,
+  getConnection,
+  getRepository
+} from "typeorm";
+import { User, Post, PostForm, Board, Company, Vote } from "./entity";
 
 require("dotenv").config();
 
@@ -50,6 +57,11 @@ const server = new GraphQLServer({
   }
 });
 
-server.start(serverOptions, ({ port }) => {
-  console.log(`🚀  Server ready at ${port}`);
-});
+const startServer = async () => {
+  const connection: Connection = await createConnection();
+  server.start(serverOptions, ({ port }) => {
+    console.log("SERVER STARTED !");
+  });
+};
+
+startServer();

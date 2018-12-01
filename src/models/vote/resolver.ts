@@ -1,5 +1,4 @@
 // import * as User from './services';
-import { prisma } from "../../generated/prisma";
 
 export const resolver = {
   Query: <any>{},
@@ -8,7 +7,7 @@ export const resolver = {
 };
 
 resolver.Vote.owner = vote => {
-  return prisma.vote({ id: vote.id }).owner();
+  // return prisma.vote({ id: vote.id }).owner();
 };
 
 /*

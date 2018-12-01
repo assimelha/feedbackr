@@ -33,6 +33,11 @@ input IPost {
   joinedPictureUrl: String
 }
 
+input IPosts {
+  status: [String!]!
+  boardId: ID!
+}
+
 input IPostEdit {
   postId: ID!
   title: String
@@ -49,5 +54,5 @@ type Mutation {
 
 type Query {
   post(id: ID!): Post! @hasAuth(auth: true)
-  posts: [Post!]! @hasAuth(auth: true)
+  posts(postsInput: IPosts): [Post!]! @hasAuth(auth: true)
 }

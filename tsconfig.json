@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
+    "lib": ["es5", "es6", "esnext"],
     "target": "es5",
-    "moduleResolution": "node",
     "module": "commonjs",
-    "sourceMap": true,
-    "rootDir": "src",
-    "outDir": "dist",
-    "lib": ["esnext", "dom"]
+    "moduleResolution": "node",
+    "outDir": "./build",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true
   }
 }

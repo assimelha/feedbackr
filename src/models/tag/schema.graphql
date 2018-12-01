@@ -2,6 +2,25 @@ type Tag {
   id: ID!
   title: String!
   board: Board!
+  posts: [Post!]!
   createdAt: Date!
   updatedAt: Date!
+}
+
+input ITags {
+  boardId: ID!
+}
+
+input ICreateTag {
+  name: String!
+  boardId: ID!
+  postId: ID!
+}
+
+type Query {
+  tags(tagsInput: ITags!): [Tag!]!
+}
+
+type Mutation {
+  createTag(createTagInput: ICreateTag!): Tag!
 }
